@@ -102,7 +102,7 @@ Es el despliegue actual, en el proyecto `sapiencia-sis-dev-qa` (región
 - **Servicio:** `encuesta-expectativas` en Cloud Run, con la imagen del
   `Dockerfile`.
 - **Pipeline:** cada push a `main` en GitHub dispara Cloud Build
-  (`cloudbuild.yaml`). Compila la imagen, la sube a Artifact Registry y
+  (`cloudbuild.yaml`, trigger `encuesta-expectativas` en us-central1). Compila la imagen, la sube a Artifact Registry y
   despliega una revisión nueva. La configuración del servicio no cambia.
 - **Salida a la base con IP fija:** el servicio sale por la red
   `encuesta-vpc` y el Cloud NAT `encuesta-nat`, con la IP `35.223.250.210`.

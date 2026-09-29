@@ -1,36 +1,29 @@
-# Pipeline de Cloud Build: en cada push a main compila la imagen, la sube a
-# Artifact Registry y la despliega en Cloud Run. El servicio conserva su
-# configuración (variables MYSQL_*, secreto de la contraseña, red con IP fija).
+# Pipeline de Cloud Build, con el mismo formato de los demás de Sapiencia: en
+# cada push a main compila la imagen, la sube a Artifact Registry y la despliega
+# en Cloud Run. Las sustituciones se definen en el trigger; los valores de abajo
+# son los de este servicio. El servicio conserva su configuración (variables
+# MYSQL_*, secreto de la contraseña, red con IP fija de salida).
 
 substitutions:
-  _REGION: us-central1
-  _SERVICIO: encuesta-expectativas
-  _IMAGEN: us-central1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/encuesta-expectativas
+  _REPOSITORY_NAME: repo-docker
+  _IMAGE_NAME: encuesta-expectativas
+  _SERVICE_NAME: encuesta-expectativas
+  _PORT: '8080'
 
 steps:
-  - id: compilar
-    name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', '${_IMAGEN}:${SHORT_SHA}', '-t', '${_IMAGEN}:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/$_IMAGE_NAME', '.']
 
-  - id: subir
-    name: gcr.io/cloud-builders/docker
-    args: ['push', '--all-tags', '${_IMAGEN}']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/$_IMAGE_NAME']
 
-  - id: desplegar
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
-      - run
-      - deploy
-      - ${_SERVICIO}
-      - --image=${_IMAGEN}:${SHORT_SHA}
-      - --region=${_REGION}
-      - --quiet
-
-images:
-  - ${_IMAGEN}:${SHORT_SHA}
-  - ${_IMAGEN}:latest
-
-options:
-  logging: CLOUD_LOGGING_ONLY
-  dynamicSubstitutions: true
+      [
+        'run','deploy','$_SERVICE_NAME',
+        '--image','us-central1-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/$_IMAGE_NAME',
+        '--region','us-central1',
+        '--port','$_PORT',
+        '--allow-unauthenticated'
+      ]
