@@ -1,0 +1,7 @@
+# Lo que no se sube a Cloud Build (igual que .dockerignore)
+node_modules/
+.next/
+.env*
+!.env.example
+*.pem
+coverage/

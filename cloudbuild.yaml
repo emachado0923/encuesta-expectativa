@@ -1,0 +1,35 @@
+# Pipeline de Cloud Build: en cada push a main compila la imagen, la sube a
+# Artifact Registry y la despliega en Cloud Run. El servicio conserva su
+# configuración (variables MYSQL_*, secreto de la contraseña, red con IP fija).
+
+substitutions:
+  _REGION: us-central1
+  _SERVICIO: encuesta-expectativas
+  _IMAGEN: us-central1-docker.pkg.dev/${PROJECT_ID}/cloud-run-source-deploy/encuesta-expectativas
+
+steps:
+  - id: compilar
+    name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', '${_IMAGEN}:${SHORT_SHA}', '-t', '${_IMAGEN}:latest', '.']
+
+  - id: subir
+    name: gcr.io/cloud-builders/docker
+    args: ['push', '--all-tags', '${_IMAGEN}']
+
+  - id: desplegar
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICIO}
+      - --image=${_IMAGEN}:${SHORT_SHA}
+      - --region=${_REGION}
+      - --quiet
+
+images:
+  - ${_IMAGEN}:${SHORT_SHA}
+  - ${_IMAGEN}:latest
+
+options:
+  logging: CLOUD_LOGGING_ONLY

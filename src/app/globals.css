@@ -1,0 +1,1191 @@
+/*
+ * Estilos del formulario con los valores de la plantilla Sapiencia (colores,
+ * Rubik, radios, sombras, botones, cabecera y pie). No se carga el styles.css
+ * del kit (1,1 MB): solo lo que el formulario usa, para que abra rápido en un
+ * celular con datos o en una sala de sistemas con muchos equipos a la vez.
+ */
+
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('/fonts/Rubik-latin-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('/fonts/Rubik-latin-ext-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+    U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  color-scheme: light;
+
+  --morado-30: #74367b;
+  --morado-40: #9b48a4;
+  --morado-60: #bd86c3;
+  --morado-80: #dec2e1;
+  --morado-90: #eee0f0;
+  --morado-95: #f7f0f7;
+  /* La base es el morado; el azul oscuro, el magenta y el celeste quedan como acentos. */
+  --marino-40: #0b3a56;
+  /* Magenta del kit (tertiary-pink, tono 50): con texto blanco da 4,68:1. */
+  --magenta: #b64f8c;
+  /* Celeste de la paleta (info, tono 70): claro, lleva texto oscuro encima. */
+  --celeste: #3ab6e6;
+  --verde-40: #1e6933;
+  --verde-95: #e6f4ea;
+  --amarillo-95: #ffedaa;
+  --rojo-40: #aa0c00;
+  --rojo-98: #fff4f3;
+  --neutro-10: #151717;
+  --neutro-30: #2f3233;
+  --neutro-40: #3d4041;
+  --neutro-50: #4e5254;
+  --neutro-60: #787b7d;
+  --neutro-80: #cccccc;
+  --neutro-90: #dcdcdc;
+  --neutro-95: #f4f4f4;
+  --neutro-98: #f9f9f9;
+  --blanco: #ffffff;
+
+  --fuente: 'Rubik', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --radio-xl: 0.625rem;
+  --radio-xxl: 0.75rem;
+  --radio-unal: 2.5rem;
+  /* La esquina inferior derecha amplia es la firma de la plantilla (cabecera y tarjetas). */
+  --esquina: var(--radio-xxl) var(--radio-xxl) var(--radio-unal) var(--radio-xxl);
+  --sombra-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.15);
+  --sombra-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --foco: 3px solid var(--neutro-10);
+  --ancho: 46rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 9rem;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  background: var(--neutro-95);
+  color: var(--neutro-10);
+  font-family: var(--fuente);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+p,
+ul,
+ol,
+fieldset {
+  margin: 0;
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: var(--foco);
+  outline-offset: 2px;
+}
+
+/* Los títulos reciben el foco al cambiar de vista para los lectores de pantalla. */
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.solo-lector {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.saltar {
+  position: absolute;
+  top: -10rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 var(--radio-xl) var(--radio-xl);
+  background: var(--neutro-10);
+  color: var(--blanco);
+  font-weight: 700;
+}
+
+.saltar:focus {
+  top: 0;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.icono {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* ── Cabecera institucional (plantilla) ─────────────────────────────── */
+
+.cabecera {
+  --logo-ancho: 15rem;
+  position: relative;
+}
+
+/* El logo del Observatorio es ancho y no cabe en el círculo de la plantilla: va
+   en un rectángulo blanco que cuelga de la cabecera, con la esquina amplia. */
+.cabecera__logo {
+  position: absolute;
+  top: 0;
+  bottom: -0.75rem;
+  left: 0.5rem;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  width: var(--logo-ancho);
+  padding: 0.5rem 1.125rem;
+  line-height: 0;
+  border-radius: 0 0 var(--radio-unal) var(--radio-xxl);
+  background: var(--blanco);
+  box-shadow:
+    0 2px 3px 0 rgb(0 0 0 / 0.3),
+    0 6px 10px 4px rgb(0 0 0 / 0.15);
+}
+
+.cabecera__logo img {
+  width: 100%;
+  height: auto;
+}
+
+.cabecera__franja {
+  height: 0.5rem;
+  background: var(--marino-40);
+}
+
+.cabecera__barra {
+  display: flex;
+  align-items: center;
+  padding: calc(1.1rem + 0.6vw) 1.25rem calc(1.1rem + 0.6vw) calc(0.5rem + var(--logo-ancho) + 1.25rem);
+  border-bottom-right-radius: var(--radio-unal);
+  background: var(--morado-40);
+  color: var(--blanco);
+}
+
+.cabecera__nombre {
+  overflow: hidden;
+  font-weight: 700;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Contenido ──────────────────────────────────────────────────────── */
+
+.principal {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  padding: 2.5rem 0 2rem;
+}
+
+.principal:focus {
+  outline: none;
+}
+
+.tarjeta {
+  padding: 1.5rem 1.25rem;
+  border-radius: var(--esquina);
+  background: var(--blanco);
+  box-shadow: var(--sombra-1);
+}
+
+.antetitulo {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50rem;
+  background: var(--morado-95);
+  color: var(--morado-40);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.titulo {
+  margin-top: 0.75rem;
+  font-size: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+/* En la bienvenida el título abre la tarjeta: sin etiqueta encima, sin margen extra. */
+.titulo:first-child {
+  margin-top: 0;
+}
+
+.entrada {
+  margin-top: 0.5rem;
+  color: var(--neutro-30);
+  font-size: 1.1875rem;
+  font-weight: 300;
+}
+
+.texto {
+  margin-top: 1rem;
+  color: var(--neutro-40);
+}
+
+.suave {
+  color: var(--neutro-50);
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: 2rem;
+}
+
+.acciones--separadas {
+  justify-content: space-between;
+}
+
+/* ── Botones (plantilla) ────────────────────────────────────────────── */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 10.25rem;
+  min-height: 2.875rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 0.19rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.boton .icono {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.boton--primario {
+  border-color: var(--morado-40);
+  background: var(--morado-40);
+  color: var(--blanco);
+}
+
+.boton--primario:hover:not(:disabled) {
+  border-color: var(--morado-30);
+  background: var(--morado-30);
+}
+
+.boton--contorno {
+  border-color: var(--morado-40);
+  background: var(--blanco);
+  color: var(--morado-40);
+}
+
+.boton--contorno:hover:not(:disabled) {
+  background: var(--morado-95);
+  color: var(--morado-30);
+}
+
+.boton--texto {
+  min-width: 0;
+  padding-inline: 0.25rem;
+  background: none;
+  color: var(--morado-40);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.boton--grande {
+  min-height: 3.25rem;
+  padding-inline: 1.5rem;
+  font-size: 1.0625rem;
+}
+
+.boton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.boton[aria-busy='true'] {
+  cursor: progress;
+  opacity: 0.85;
+}
+
+.girando {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Bienvenida ─────────────────────────────────────────────────────── */
+
+.portada {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Anillo decorativo, como en las tarjetas de cifras del observatorio. */
+.portada::after {
+  content: '';
+  position: absolute;
+  top: -4.5rem;
+  right: -4.5rem;
+  width: 12rem;
+  height: 12rem;
+  border: 1.75rem solid var(--morado-95);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.portada > * {
+  position: relative;
+  z-index: 1;
+}
+
+.datos {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.dato {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1rem;
+  border-radius: var(--radio-xl);
+  background: var(--neutro-95);
+}
+
+.dato__icono {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--blanco);
+  color: var(--morado-40);
+}
+
+.dato__icono .icono {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.dato strong {
+  display: block;
+  line-height: 1.3;
+}
+
+/* Solo el texto: el ícono también va en un span y debe quedar blanco. */
+.dato p span {
+  color: var(--neutro-50);
+  font-size: 0.9375rem;
+}
+
+/* ── Aviso de datos ─────────────────────────────────────────────────── */
+
+.aviso {
+  display: grid;
+  gap: 0.875rem;
+  margin-top: 1.25rem;
+  color: var(--neutro-40);
+}
+
+.enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--morado-40);
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
+.enlace .icono {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.autorizaciones {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.casilla {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1rem;
+  border: 1.5px solid var(--neutro-60);
+  border-radius: var(--radio-xl);
+  cursor: pointer;
+}
+
+.casilla:hover {
+  border-color: var(--morado-60);
+}
+
+.casilla:has(input:checked) {
+  border-color: var(--morado-40);
+  background: var(--morado-95);
+}
+
+.casilla input {
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0.0625rem 0 0;
+  accent-color: var(--morado-40);
+  cursor: pointer;
+}
+
+/* ── Encuesta: avance y números ─────────────────────────────────────── */
+
+.avance {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  padding: 0.75rem 0 0.25rem;
+  background: rgb(244 244 244 / 0.96);
+  box-shadow: 0 1px 0 var(--neutro-90);
+  backdrop-filter: blur(6px);
+}
+
+.avance__fila {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.avance__conteo {
+  color: var(--neutro-40);
+}
+
+.avance__porcentaje {
+  color: var(--morado-40);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.avance__barra {
+  height: 0.5rem;
+  margin-top: 0.375rem;
+  overflow: hidden;
+  border-radius: 50rem;
+  background: var(--neutro-90);
+}
+
+.avance__relleno {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--morado-40);
+  transition: width 0.35s ease;
+}
+
+.numeros__lista {
+  position: relative;
+  display: flex;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0.625rem 0.25rem 0.5rem;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.numeros__lista::-webkit-scrollbar {
+  display: none;
+}
+
+.numeros__corte {
+  flex: none;
+  align-self: stretch;
+  width: 1px;
+  margin: 0.25rem 0.125rem;
+  background: var(--neutro-80);
+}
+
+.numero {
+  /* Color de la categoría y del número cuando la pregunta está respondida. */
+  --categoria: var(--magenta);
+  --sobre-categoria: var(--blanco);
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  padding: 0;
+  border: 1.5px solid var(--categoria);
+  border-radius: 50%;
+  background: var(--blanco);
+  color: var(--neutro-50);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* Sobre ti va en magenta (el valor de arriba), Tu decisión en azul oscuro y Tu camino en celeste. */
+.numero[data-categoria='decision'] {
+  --categoria: var(--marino-40);
+}
+
+.numero[data-categoria='camino'] {
+  --categoria: var(--celeste);
+  /* El blanco sobre el celeste no llega a 4,5:1: el número respondido va oscuro. */
+  --sobre-categoria: var(--neutro-10);
+}
+
+.numero:hover {
+  background: color-mix(in srgb, var(--categoria) 12%, var(--blanco));
+}
+
+.numero[data-estado='completa'] {
+  background: var(--categoria);
+  color: var(--sobre-categoria);
+}
+
+.numero[data-estado='omitida'] {
+  border-style: dashed;
+}
+
+.numero[data-estado='falta'] {
+  border-color: var(--rojo-40);
+  background: var(--rojo-98);
+  color: var(--rojo-40);
+}
+
+.numero[aria-current='step'] {
+  box-shadow:
+    0 0 0 2px var(--neutro-95),
+    0 0 0 4px var(--neutro-10);
+}
+
+.numero--futuro {
+  border-style: dashed;
+  cursor: help;
+}
+
+.numero--futuro:hover {
+  background: var(--blanco);
+}
+
+/* ── Encuesta: pregunta ─────────────────────────────────────────────── */
+
+.encuesta__cuerpo {
+  padding-top: 1rem;
+}
+
+.pregunta__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.pregunta__numero {
+  color: var(--neutro-50);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.pregunta__texto {
+  margin-top: 1rem;
+  font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.pregunta__texto:focus {
+  outline: none;
+}
+
+.pregunta__ayuda {
+  margin-top: 0.5rem;
+  color: var(--neutro-50);
+}
+
+.etiqueta-opcional {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 50rem;
+  background: var(--neutro-95);
+  color: var(--neutro-50);
+  font-size: 0.75rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.pregunta__campo {
+  margin-top: 1.5rem;
+}
+
+.pregunta--adelante {
+  animation: entrar-adelante 0.22s ease-out;
+}
+
+.pregunta--atras {
+  animation: entrar-atras 0.22s ease-out;
+}
+
+@keyframes entrar-adelante {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+}
+
+@keyframes entrar-atras {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+}
+
+/* Opciones: la tarjeta completa es el área de toque; el control nativo queda
+   encima, transparente, para conservar teclado y lector de pantalla. */
+.opciones {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.opcion {
+  position: relative;
+  display: block;
+}
+
+.opcion__control {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.opcion__caja {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  min-height: 3.25rem;
+  padding: 0.8125rem 1rem;
+  border: 1.5px solid var(--neutro-60);
+  border-radius: var(--radio-xl);
+  background: var(--blanco);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.opcion:hover .opcion__caja {
+  border-color: var(--morado-60);
+}
+
+.opcion__control:checked + .opcion__caja {
+  border-color: var(--morado-40);
+  background: var(--morado-95);
+  box-shadow: inset 0 0 0 1px var(--morado-40);
+}
+
+.opcion__control:focus-visible + .opcion__caja {
+  outline: var(--foco);
+  outline-offset: 2px;
+}
+
+.opcion__marca {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin-top: 0.0625rem;
+  border: 2px solid var(--neutro-60);
+  border-radius: 50%;
+  background: var(--blanco);
+  color: var(--blanco);
+}
+
+.opcion--multiple .opcion__marca {
+  border-radius: 0.3rem;
+}
+
+.opcion__marca .icono {
+  width: 0.9375rem;
+  height: 0.9375rem;
+  opacity: 0;
+}
+
+.opcion__control:checked + .opcion__caja .opcion__marca {
+  border-color: var(--morado-40);
+  background: var(--morado-40);
+}
+
+.opcion__control:checked + .opcion__caja .opcion__marca .icono {
+  opacity: 1;
+}
+
+.opcion--unica .opcion__control:checked + .opcion__caja .opcion__marca {
+  background: radial-gradient(circle, var(--blanco) 0 30%, var(--morado-40) 34%);
+}
+
+.opcion--unica .opcion__marca .icono {
+  display: none;
+}
+
+.opcion__texto {
+  line-height: 1.4;
+}
+
+.campo {
+  display: block;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--neutro-60);
+  border-radius: var(--radio-xl);
+  background: var(--blanco);
+  font-size: 1.125rem;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.campo:hover {
+  border-color: var(--morado-60);
+}
+
+.campo:focus {
+  border-color: var(--morado-40);
+  box-shadow: 0 0 0 3px var(--morado-80);
+  outline: none;
+}
+
+.campo[aria-invalid='true'] {
+  border-color: var(--rojo-40);
+}
+
+.campo--fecha {
+  max-width: 16rem;
+}
+
+.campo--documento {
+  max-width: 22rem;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.campo__nota {
+  margin-top: 0.5rem;
+  color: var(--neutro-50);
+  font-size: 0.875rem;
+}
+
+/* ── Paso de validación: documento, fecha y, si hace falta, la clave ── */
+
+.campo__etiqueta {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-weight: 700;
+}
+
+.validacion__campo + .validacion__campo {
+  margin-top: 1.25rem;
+}
+
+/* La edad es la segunda verificación: se ve apenas la fecha es válida. */
+.edad {
+  color: var(--neutro-40);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.edad:empty {
+  display: none;
+}
+
+.mensaje.validacion__clave {
+  margin-top: 1.5rem;
+  border-left-color: var(--morado-40);
+}
+
+.validacion__clave .campo__etiqueta {
+  margin-top: 0.75rem;
+}
+
+.campo--clave {
+  max-width: 22rem;
+}
+
+.pregunta__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  color: var(--rojo-40);
+  font-weight: 700;
+}
+
+.pregunta__error .icono {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.0625rem;
+}
+
+/* ── Avisos (envío, faltantes, errores) ─────────────────────────────── */
+
+.mensaje {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: var(--radio-xl);
+  border-left: 4px solid var(--marino-40);
+  background: var(--blanco);
+  box-shadow: var(--sombra-1);
+}
+
+.encuesta__mensaje .mensaje {
+  margin: 0 0 1rem;
+}
+
+.mensaje--error {
+  border-left-color: var(--rojo-40);
+}
+
+.mensaje--error > .icono {
+  color: var(--rojo-40);
+}
+
+.mensaje--espera {
+  border-left-color: var(--morado-40);
+}
+
+.mensaje--listo {
+  border-left-color: var(--verde-40);
+}
+
+.mensaje--listo > .icono {
+  color: var(--verde-40);
+}
+
+.mensaje p + p,
+.mensaje p + .acciones {
+  margin-top: 0.5rem;
+}
+
+.mensaje .acciones {
+  margin-top: 0.75rem;
+}
+
+/* ── Navegación de la encuesta ──────────────────────────────────────── */
+
+.navegacion {
+  position: sticky;
+  bottom: 0;
+  z-index: 30;
+  margin-top: 1rem;
+  padding: 0.75rem 0 calc(0.75rem + env(safe-area-inset-bottom));
+  background: var(--blanco);
+  /* Borde y sombra marcados: la barra es blanca como la tarjeta que pasa por debajo. */
+  box-shadow: 0 -1px 0 var(--neutro-80), 0 -6px 16px rgb(0 0 0 / 0.14);
+}
+
+.navegacion__botones {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.navegacion .boton {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* ── Final ──────────────────────────────────────────────────────────── */
+
+.final {
+  text-align: center;
+}
+
+.final__sello {
+  display: inline-grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: var(--verde-95);
+  color: var(--verde-40);
+}
+
+.final__sello .icono {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.final .texto {
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.final .acciones {
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.codigo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  margin-top: 1.5rem;
+  padding: 0.875rem 1.5rem;
+  border: 1.5px dashed var(--morado-60);
+  border-radius: var(--radio-xl);
+  background: var(--morado-95);
+}
+
+.codigo span {
+  color: var(--neutro-50);
+  font-size: 0.875rem;
+}
+
+.codigo strong {
+  color: var(--morado-30);
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.recomendado {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border-radius: var(--esquina);
+  background: var(--marino-40);
+  color: var(--blanco);
+  text-align: left;
+}
+
+.recomendado p {
+  flex: 1;
+}
+
+.recomendado strong {
+  display: block;
+}
+
+.recomendado .boton {
+  flex: none;
+  border-color: var(--blanco);
+  background: var(--blanco);
+  color: var(--marino-40);
+}
+
+.recomendado .boton:hover {
+  background: var(--morado-95);
+}
+
+/* ── Pie institucional (plantilla) ──────────────────────────────────── */
+
+/* Sin relleno abajo: la tarjeta de la pata se apoya en el borde y parece salir de él.
+   Una franja a lo ancho, de la misma altura del arco, en un gris a medio camino
+   entre el blanco y el fondo de la página: no es blanca, pero es más clara que
+   el fondo. La separación con el contenido queda en el gris del fondo. */
+.pie {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+  background: var(--neutro-98);
+}
+
+/* Un arco morado que sale del borde de abajo, con la pata en blanco. Tiene la
+   forma de la tarjeta que entregó Sapiencia (900 × 457, esquinas de 75 px
+   arriba y rectas abajo); en porcentajes, para que escale igual en el celular. */
+.pie__arco {
+  width: min(22.4rem, 74vw);
+  aspect-ratio: 900 / 457;
+  border-radius: 8.33% 8.33% 0 0 / 16.4% 16.4% 0 0;
+  background: var(--morado-40);
+}
+
+/* Los logos van donde estaban en la tarjeta: 80 % del ancho, centrados y a
+   83 px del borde de arriba (el margen en % se mide sobre el ancho del arco). */
+.pie__pata {
+  display: block;
+  width: 80%;
+  height: auto;
+  margin: 9.2% auto 0;
+}
+
+/* ── Pantallas medianas y grandes ───────────────────────────────────── */
+
+@media (min-width: 768px) {
+  .principal {
+    padding-top: 3rem;
+  }
+
+  .tarjeta {
+    padding: 2.5rem 2.75rem;
+  }
+
+  .datos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dato {
+    flex-direction: column;
+  }
+
+  .numeros__lista {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  .navegacion {
+    position: static;
+    margin-top: 1.5rem;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .navegacion__botones {
+    justify-content: space-between;
+  }
+
+  .navegacion .boton {
+    flex: none;
+    min-width: 10.25rem;
+  }
+}
+
+@media (max-width: 479px) {
+  /* En celular el logo se achica con la pantalla y el nombre pasa a dos líneas. */
+  .cabecera {
+    --logo-ancho: min(11rem, 45vw);
+  }
+
+  .cabecera__logo {
+    padding-inline: 0.75rem;
+  }
+
+  .cabecera__nombre {
+    white-space: normal;
+  }
+
+  .acciones .boton {
+    flex: 1 1 100%;
+  }
+
+  .recomendado {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* El antetítulo ocupa casi todo el ancho y el anillo, del mismo morado-95, se
+     funde con él: en celular no hay esquina libre, así que se quita. */
+  .portada::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

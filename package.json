@@ -1,0 +1,36 @@
+{
+  "name": "encuesta-expectativas",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clave": "tsx scripts/generar-clave.ts",
+    "carga": "tsx scripts/prueba-carga.ts"
+  },
+  "dependencies": {
+    "mysql2": "^3.24.4",
+    "next": "16.3.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.0.2"
+  },
+  "description": "Encuesta de expectativas de estudiantes de grado 11 de Medellín · Sapiencia (Next.js + MySQL)",
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
